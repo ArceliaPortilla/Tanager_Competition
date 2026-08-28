@@ -2,7 +2,7 @@
 
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.xxxxxx-blue.svg)]([10.5281/zenodo.22151074.](https://doi.org/10.5281/zenodo.22151075))
+[![DOI](https://img.shields.io/badge/DOI-10.5281/zenodo.xxxxxx-blue.svg)](https://doi.org/10.5281/zenodo.22151075))
 
 **A complete Python workflow for extracting wave parameters (wavelength, direction, energy) from Tanager hyperspectral satellite imagery, using Random Forest classification, Fourier analysis, and wavelet transforms.**
 
