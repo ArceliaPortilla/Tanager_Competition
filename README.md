@@ -8,68 +8,69 @@
 
 ---
 
-## Tabla de Contenidos
+## Table of Contents
 
-- [Descripción General](#descripción-general)
-- [Características](#características)
-- [Requisitos de Datos](#requisitos-de-datos)
-- [Instalación](#instalación)
-- [Flujo de Trabajo](#flujo-de-trabajo)
-- [Uso](#uso)
-- [Resultados](#resultados)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Dependencias](#dependencias)
-- [Licencia](#licencia)
-- [Citación](#citación)
-- [Contacto](#contacto)
-
----
-
-## Descripción General
-
-Este proyecto investiga el potencial de las imágenes hiperespectrales del satélite Tanager para extraer información de olas necesaria para la **inversión batimétrica basada en ondas** en entornos costeros. El área de estudio es Santa Cruz, Galápagos, Ecuador.
-
-El flujo de trabajo transforma las observaciones hiperespectrales de Tanager en descriptores cuantitativos de olas: **longitud de onda**, **dirección de propagación** y **energía**, que pueden usarse como entradas para relaciones de dispersión de ondas y estimar la profundidad del agua.
-
-El pipeline integra:
-
-- **Clasificación supervisada** (Random Forest) para aislar el dominio acuático.
-- **Transformada rápida de Fourier 2D (FFT)** y **transformada wavelet** para la detección de olas.
-- **Extracción de parámetros físicos** (longitud de onda, orientación, energía).
-- **Caracterización de fenómenos de olas** (refracción, difracción, interferencia).
+- [Overview](#overview)
+- [Features](#features)
+- [Data Requirements](#data-requirements)
+- [Installation](#installation)
+- [Workflow](#workflow)
+- [Usage](#usage)
+- [Outputs](#outputs)
+- [Project Structure](#project-structure)
+- [Dependencies](#dependencies)
+- [License](#license)
+- [Citation](#citation)
+- [Contact](#contact)
 
 ---
 
-## Características
+## Overview
 
-- **Selección interactiva de ROI** – Selecciona muestras de entrenamiento para 7 clases de cobertura del suelo (AGUA, TIERRA, NUBES, SIN_DATOS, AGUA_DULCE, SOMBRA, VEGETACIÓN) usando una interfaz gráfica.
-- **Clasificación Random Forest** – Entrena y aplica un clasificador para producir un mapa de 7 clases y máscaras individuales (GeoTIFF).
-- **Detección de olas** – Muestrea píxeles de agua, calcula la FFT 2D y características wavelet, y genera un mapa probabilístico de presencia de olas.
-- **Extracción de parámetros** – Para píxeles con alta probabilidad de ola, extrae longitud de onda (m), orientación (grados) y relación de energía.
-- **Análisis de fenómenos de olas** – Calcula gradiente local de orientación (refracción), curvatura (difracción) y varianza circular (interferencia).
-- **Visualización completa** – Diagramas de rosa, mapas de superposición, mapas de probabilidad y figuras resumen.
-- **Todos los resultados son compatibles con GeoTIFF** para integración en SIG.
+This project investigates the potential of hyperspectral satellite imagery from Tanager to extract wave information needed for **wave‑based bathymetric inversion** in coastal environments. The study area is Santa Cruz, Galápagos, Ecuador.
 
----
+The workflow transforms Tanager hyperspectral observations into quantitative wave descriptors—**wavelength**, **propagation direction**, and **energy**—which can subsequently be used as inputs to wave‑dispersion relationships to estimate water depth.
 
-## Requisitos de Datos
+The pipeline integrates:
 
-Necesitas los siguientes productos de Tanager (descargados desde el [Tanager STAC Browser](https://www.planet.com/data/stac/browser/tanager-core-imagery/)):
-
-| Archivo | Descripción |
-|---------|-------------|
-| `*_ortho_visual.tif` | Imagen RGB ortorrectificada visual |
-| `*_ortho_sr_hdf5.h5` | Cubo hiperespectral de reflectancia superficial ortorrectificado |
-| `*_ortho_beta_udm.tif` | Máscara de nubes y calidad (opcional pero recomendada) |
-
-Coloca todos los archivos en un solo directorio (por ejemplo, `D:\Arcelia\Tangent` o ajusta la variable `BASE_DIR` en los scripts).
+- **Supervised classification** (Random Forest) for water‑domain isolation.
+- **2D Fast Fourier Transform (FFT)** and **Wavelet transform** for wave detection.
+- **Physical parameter extraction** (wavelength, orientation, energy).
+- **Wave‑phenomenon characterisation** (refraction, diffraction, interference).
 
 ---
 
-## Instalación
+## Features
 
-### 1. Clonar el repositorio
+- **Interactive ROI Selection** – Select training samples for 7 land‑cover classes (WATER, LAND, CLOUD, NO_DATA, FRESH_WATER, SHADOW, VEGETATION) using a graphical interface.
+- **Random Forest Classification** – Train and apply a classifier to produce a 7‑class map and individual masks (GeoTIFF).
+- **Wave Detection** – Sample water pixels, compute 2D FFT and wavelet features, and generate a probabilistic wave‑presence map.
+- **Parameter Extraction** – For high‑probability wave pixels, extract wavelength (m), orientation (degrees), and energy ratio.
+- **Wave Phenomena Analysis** – Compute local gradient of orientation (refraction), curvature (diffraction), and circular variance (interference).
+- **Comprehensive Visualisation** – Rose diagrams, overlay plots, probability maps, and summary figures.
+- **All outputs are GeoTIFF‑ready** for GIS integration.
+
+---
+
+## Data Requirements
+
+You need the following Tanager products (downloaded from the [Tanager STAC Browser](https://www.planet.com/data/stac/browser/tanager-core-imagery/)):
+
+| File | Description |
+|------|-------------|
+| `*_ortho_visual.tif` | Orthorectified visual RGB image |
+| `*_ortho_sr_hdf5.h5` | Orthorectified surface‑reflectance hyperspectral cube |
+| `*_ortho_beta_udm.tif` | Cloud and quality mask (optional but recommended) |
+
+Place all files in a single directory (e.g., `D:\Arcelia\Tangent` or adjust the `BASE_DIR` variable in the scripts).
+
+---
+
+## Installation
+
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/tu_usuario/tanager-wave-extraction.git
+git clone https://github.com/your_username/tanager-wave-extraction.git
 cd tanager-wave-extraction
+
